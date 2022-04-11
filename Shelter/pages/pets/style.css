@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Georgia-Regular';
-    src: url("../../../assets/fonts/georgia-regular.ttf");
+    src: url("../../assets/fonts/georgia-regular.ttf");
 }
 
 @font-face {
     font-family: 'Arial-Regular';
-    src: url("../../../assets/fonts/arial-regular.ttf");
+    src: url("../../assets/fonts/arial-regular.ttf");
 }
 
 .container {
@@ -238,7 +238,7 @@ header {
     border-radius: 50%;
     width: 52px;
     height: 52px;
-    background-image: url(../../../assets/icons/arrow-start.svg);
+    background-image: url(../../assets/icons/arrow-start.svg);
     background-repeat: no-repeat;
     background-position: center;
     transition: 0.5s;
@@ -253,7 +253,7 @@ header {
     border-radius: 50%;
     width: 52px;
     height: 52px;
-    background-image: url(../../../assets/icons/arrow-back.svg);
+    background-image: url(../../assets/icons/arrow-back.svg);
     background-repeat: no-repeat;
     background-position: center;
     transition: 0.5s;
@@ -268,7 +268,7 @@ header {
     border-radius: 50%;
     width: 52px;
     height: 52px;
-    background-image: url(../../../assets/icons/arrow-forward.svg);
+    background-image: url(../../assets/icons/arrow-forward.svg);
     background-repeat: no-repeat;
     background-position: center;
     transition: 0.5s;
@@ -284,7 +284,7 @@ header {
     border-radius: 50%;
     width: 52px;
     height: 52px;
-    background-image: url(../../../assets/icons/arrow-end.svg);
+    background-image: url(../../assets/icons/arrow-end.svg);
     background-repeat: no-repeat;
     background-position: center;
     transition: 0.5s;
@@ -321,7 +321,7 @@ header {
     align-items: flex-end;
     justify-content: center;
     height: 350px;    
-    background: url(../../../assets/img/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20
+    background: url(../../assets/img/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20
 }
 
 .footer-content-pets{

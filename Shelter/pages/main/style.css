@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Georgia-Regular';
-    src: url("../../../assets/fonts/georgia-regular.ttf");
+    src: url("../../assets/fonts/georgia-regular.ttf");
 }
 
 @font-face {
     font-family: 'Arial-Regular';
-    src: url("../../../assets/fonts/arial-regular.ttf");
+    src: url("../../assets/fonts/arial-regular.ttf");
 }
 
 .container {
@@ -106,7 +106,7 @@ body {
     align-items: flex-end;
     width: 1280px;
     height: 908px;
-    background: url(../../../assets/img/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+    background: url(../../assets/img/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
 .start_screen-content-main {
@@ -269,7 +269,7 @@ h3{
     border-radius: 50%;
     width: 52px;
     height: 52px;
-    background-image: url(../../../assets/icons/Arrow.svg);
+    background-image: url("../../assets/icons/Arrow.svg");
     background-repeat: no-repeat;
     background-position: center;
     margin: auto 0;
@@ -288,7 +288,7 @@ h3{
     border-radius: 50%;
     width: 52px;
     height: 52px;
-    background-image: url(../../../assets/icons/Arrow.svg);
+    background-image: url("../../assets/icons/Arrow.svg");
     background-repeat: no-repeat;
     background-position: center;
     transform: rotate(180deg);
@@ -552,7 +552,7 @@ a{
     align-items: flex-end;
     justify-content: center;
     height: 350px;    
-    background: url(../../../assets/img/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20
+    background: url(../../assets/img/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20
 }
 
 .footer-content-main{
