@@ -166,6 +166,7 @@ header {
     background-color: #FFFFFF;
     box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .card-pets:hover :last-child.pets-card-button-pets {
