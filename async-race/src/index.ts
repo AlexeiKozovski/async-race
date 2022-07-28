@@ -1,3 +1,8 @@
-const app = new App();
+import './style.css';
+import { renderLayout } from './view/layout/layout';
 
-app.start();
+renderLayout();
+
+// const app = new App();
+
+// app.start();

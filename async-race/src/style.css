@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  line-height: 1.3;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  background-color: #212529;
+  color: white;
+}
+
+.container {
+  width: 1280px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.navbar{
+  display: flex;  
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem 0;
+}
+
+.btn{
+  background-color: darkgreen;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  color: white;
+
+
+}
+
+/* main {
+  display: block;
+} */
+
+.hide{
+  display: none;
+}
