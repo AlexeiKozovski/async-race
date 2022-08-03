@@ -1,8 +1,11 @@
 import './style.css';
-import { renderLayout } from './view/layout/layout';
+import { renderLayout } from './components/view/layout/layout';
+import { App } from './components/app/app';
 
 renderLayout();
 
-// const app = new App();
+const garageConteiner = document.querySelector('.garage-view') as HTMLElement;
 
-// app.start();
+const app = new App(garageConteiner);
+
+app.start();
