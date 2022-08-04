@@ -46,7 +46,7 @@ body {
 
    /* garage */
 
-.controll-garage{
+.control-garage{
   max-width: 400px;
 }
 
@@ -92,3 +92,41 @@ body {
 .btn-gray{
   background-color: gray;
 }
+
+/* car */
+
+.car-block{
+  margin-bottom: 1rem;
+}
+
+.control{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.wrapper-track{
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  border-bottom: 4px dashed #fff;
+  background-image: url(./assets/flag.png);
+  background-repeat: no-repeat;
+  background-size: 40px;
+  background-position-x: calc( 100% - 60px );
+  background-position-y: bottom;
+}
+
+.engine{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.race-track{
+  position: relative;
+  width: calc(100% - 80px);
+}
+
