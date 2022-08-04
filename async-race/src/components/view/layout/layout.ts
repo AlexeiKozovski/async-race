@@ -1,4 +1,5 @@
 import { createDivBlock } from '../utils/createDivBlock';
+import { createNode } from '../utils/createNode';
 import { addNavigationHandler } from './navigationHandler';
 
 function createHeader(container: HTMLElement): void {
@@ -13,8 +14,7 @@ function createHeader(container: HTMLElement): void {
 }
 
 function createMain(container: HTMLElement): void {
-  const main = document.createElement('main') as HTMLElement;
-  main.classList.add('container');
+  const main = createNode('container', 'main');
   main.innerHTML = `
   <section class="garage-view"></section>
   <section class="winners-view hide"></section>

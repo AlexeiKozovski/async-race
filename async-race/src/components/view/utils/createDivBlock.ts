@@ -1,6 +1,6 @@
 export function createDivBlock(classList: string, title: string): HTMLDivElement {
   const div = document.createElement('div');
-  div.className = `${classList}`;
+  div.className = classList;
   div.innerHTML = `
   <h2 class="title">${title} (<span data-id="total-count"></span>)</h2>
   <h3 class="page">Page <span data-id="page"></span></h3>
