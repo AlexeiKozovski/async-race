@@ -13,7 +13,7 @@ export class AppView {
   renderView(): void {
 
     try {
-      this.garage.createControllGarage();
+      this.garage.createControlGarage();
     } catch (error) {
       console.error('Error');
     }

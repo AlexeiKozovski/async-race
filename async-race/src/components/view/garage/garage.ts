@@ -9,9 +9,9 @@ export class Garage {
     this.pageNumber = 1;
   }
 
-  createControllGarage(): void {
-    const controllContainer = createNode('controll-garage');
-    controllContainer.innerHTML = `
+  createControlGarage(): void {
+    const controlContainer = createNode('control-garage');
+    controlContainer.innerHTML = `
     <div class="input-group">
       <input class="form-control input-text" type="text" id="model-car" 
       name="model-car" placeholder="Input model">
@@ -36,6 +36,6 @@ export class Garage {
       <button class="btn btn-gray" id="generate">Generate cars</button>
     </div>
     `;
-    this.container.prepend(controllContainer);
+    this.container.prepend(controlContainer);
   }
 }
