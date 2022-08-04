@@ -1,12 +1,19 @@
+import { RaceApi } from '../../api/api';
+import { IQueryParam } from '../../interfaces/IQueryParam';
+import { createCar } from '../car/car';
 import { createNode } from '../utils/createNode';
+
+const CAR_LIMIT = 7;
 
 export class Garage {
   container: HTMLElement;
   pageNumber: number;
+  api: RaceApi;
 
-  constructor(container: HTMLElement) {
+  constructor(container: HTMLElement, api: RaceApi) {
     this.container = container;
     this.pageNumber = 1;
+    this.api = api;
   }
 
   createControlGarage(): void {
@@ -37,5 +44,24 @@ export class Garage {
     </div>
     `;
     this.container.prepend(controlContainer);
+  }
+
+  async renderCars(): Promise<void> {
+    const QUERY_PARAMS: IQueryParam[] = [
+      { name: '_page', value: this.pageNumber },
+      { name: '_limit', value: CAR_LIMIT },
+    ];
+    const cars = await this.api.getCars(QUERY_PARAMS);
+    const carCount = this.container
+      .querySelector('span[data-id="total-count"]') as HTMLElement;
+    carCount.textContent = `${cars?.count}`;
+    const carPage = this.container
+      .querySelector('span[data-id="page"]') as HTMLElement;
+    carPage.textContent = `#${this.pageNumber}`;
+    const carsContainer = this.container
+      .querySelector('.content') as HTMLElement;
+    carsContainer.innerHTML = '';
+
+    cars?.items.forEach((car) => carsContainer.append(createCar(car)))
   }
 }

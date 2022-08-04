@@ -99,6 +99,11 @@ body {
   margin-bottom: 1rem;
 }
 
+.car-image{
+  width: 100px;
+  height: auto;
+}
+
 .control{
   display: flex;
   flex-wrap: wrap;
