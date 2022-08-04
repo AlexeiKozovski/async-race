@@ -32,6 +32,7 @@ body {
   border-radius: 0.25rem;
   padding: 0.4rem 0.75rem;
   color: white;
+  margin-right: 0.25rem;
 
 
 }
@@ -72,7 +73,7 @@ body {
   border: 1px solid #ced4da;
   appearance: none;
   border-radius: 0.25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .input-text{
@@ -102,6 +103,7 @@ body {
 .car-image{
   width: 100px;
   height: auto;
+  vertical-align: middle;
 }
 
 .control{
@@ -126,8 +128,8 @@ body {
 
 .engine{
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-start;
+  margin-right: 1rem;
 }
 
 .race-track{
