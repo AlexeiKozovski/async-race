@@ -3,3 +3,8 @@ export interface ICar{
   color: string;
   id?: number
 }
+
+export interface ICarView {
+  items: ICar[];
+  count: number;
+}
