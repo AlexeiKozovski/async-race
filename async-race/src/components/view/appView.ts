@@ -28,6 +28,7 @@ export class AppView {
     this.garage.addUpdateCarHandler();
     this.garage.addSelectCarHandler();
     this.garage.addRemoveCarHandler();
+    this.garage.addGenerateCarsHandler();
   }
 
 }

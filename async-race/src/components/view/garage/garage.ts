@@ -1,12 +1,14 @@
 import { RaceApi } from '../../api/api';
 import { IQueryParam } from '../../interfaces/IQueryParam';
 import { createCar } from '../car/car';
+import { createRandomCar } from '../car/carRandom';
 import { createNode } from '../utils/createNode';
 import { setDisableValue } from '../utils/utils';
 
 const CAR_LIMIT = 7;
 const SELECT_CAR_ID = 'select-car';
 const REMOVE_CAR_ID = 'remove-car';
+const CARS_GENERATE_VALUE = 100;
 
 export class Garage {
   constructor(
@@ -127,6 +129,17 @@ export class Garage {
         this.renderCars();
       }
     })    
+  }
+
+  addGenerateCarsHandler() {
+    const generateBtn = this.container.querySelector('#generate') as HTMLButtonElement;
+
+    generateBtn.addEventListener('click', async () => {
+      for (let i = 0; i < CARS_GENERATE_VALUE; i++) {
+        await this.api.createCar(createRandomCar());
+      }
+      this.renderCars();
+    })
   }
 
 
