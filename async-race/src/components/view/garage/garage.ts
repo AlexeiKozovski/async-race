@@ -6,6 +6,7 @@ import { setDisableValue } from '../utils/utils';
 
 const CAR_LIMIT = 7;
 const SELECT_CAR_ID = 'select-car';
+const REMOVE_CAR_ID = 'remove-car';
 
 export class Garage {
   constructor(
@@ -50,14 +51,11 @@ export class Garage {
       { name: '_limit', value: CAR_LIMIT },
     ];
     const cars = await this.api.getCars(QUERY_PARAMS);
-    const carCount = this.container
-      .querySelector('span[data-id="total-count"]') as HTMLElement;
+    const carCount = this.container.querySelector('span[data-id="total-count"]') as HTMLElement;
     carCount.textContent = `${cars?.count}`;
-    const carPage = this.container
-      .querySelector('span[data-id="page"]') as HTMLElement;
+    const carPage = this.container.querySelector('span[data-id="page"]') as HTMLElement;
     carPage.textContent = `#${this.pageNumber}`;
-    const carsContainer = this.container
-      .querySelector('.content') as HTMLElement;
+    const carsContainer = this.container.querySelector('.content') as HTMLElement;
     carsContainer.innerHTML = '';
 
     cars?.items.forEach((car) => carsContainer.append(createCar(car)));
@@ -119,6 +117,19 @@ export class Garage {
       }
     })
   }
+
+  addRemoveCarHandler(): void {
+    this.container.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      if (target.dataset.id === REMOVE_CAR_ID) {
+        this.api.deleteCar(Number(target.dataset.car));                   
+        this.renderCars();
+      }
+    })    
+  }
+
+
 
 
 }

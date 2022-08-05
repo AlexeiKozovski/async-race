@@ -66,5 +66,14 @@ export class RaceApi {
     return await response.json();
   }
 
+  async deleteCar(id: number): Promise<void> {
+    const response = await fetch(
+      `${this.baseUrl}/${this.carsUrl}/${id}`, { 
+        method: 'DELETE',
+      });
+
+    return await response.json();
+  }
+
 
 }
