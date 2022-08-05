@@ -33,8 +33,10 @@ body {
   padding: 0.4rem 0.75rem;
   color: white;
   margin-right: 0.25rem;
+}
 
-
+.btn:disabled{
+  opacity: 0.5;
 }
 
 /* main {

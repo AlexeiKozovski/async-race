@@ -3,7 +3,7 @@ import { IQueryParam } from '../../interfaces/IQueryParam';
 import { createCar } from '../car/car';
 import { createRandomCar } from '../car/carRandom';
 import { createNode } from '../utils/createNode';
-import { setDisableValue } from '../utils/utils';
+import { isNextPaginationValue, isPrevPaginationValue, setDisableValue } from '../utils/utils';
 
 const CAR_LIMIT = 7;
 const SELECT_CAR_ID = 'select-car';
@@ -137,6 +137,34 @@ export class Garage {
     generateBtn.addEventListener('click', async () => {
       for (let i = 0; i < CARS_GENERATE_VALUE; i++) {
         await this.api.createCar(createRandomCar());
+      }
+      this.renderCars();
+    })
+  }
+
+  addPaginationHandler(): void {
+    const prevBtn = this.container.querySelector('button[data-id="prev-page"]') as HTMLButtonElement;
+    const nextBtn = this.container.querySelector('button[data-id="next-page"]') as HTMLButtonElement;
+    const countCars = this.container.querySelector('[data-id="total-count"]') as HTMLElement;
+    const pagination = this.container.querySelector('.pagination') as HTMLElement;
+  
+    pagination.addEventListener('click', async (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target === prevBtn) {
+        const prevValue = isPrevPaginationValue(
+          prevBtn as HTMLButtonElement,
+          nextBtn as HTMLButtonElement,
+          this.pageNumber,
+        );  
+        this.pageNumber = prevValue;
+      } else if (target === nextBtn) {
+        const nextValue = isNextPaginationValue(
+          prevBtn as HTMLButtonElement,
+          nextBtn as HTMLButtonElement,
+          this.pageNumber,
+          Number(countCars.textContent),
+        );  
+        this.pageNumber = nextValue;
       }
       this.renderCars();
     })
