@@ -1,12 +1,12 @@
-import { RaceApi } from "../api/api";
-import { Garage } from "./garage/garage";
+import { RaceApi } from '../api/api';
+import { Garage } from './garage/garage';
 
 export class AppView {
   garage: Garage;
 
   constructor(
     carContainer: HTMLElement,
-    api: RaceApi
+    api: RaceApi,
 
   ) {
     this.garage = new Garage(carContainer, api);

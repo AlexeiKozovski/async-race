@@ -1,5 +1,5 @@
-import { ICar, ICarView } from "../interfaces/ICar";
-import { IQueryParam } from "../interfaces/IQueryParam";
+import { ICar, ICarView } from '../interfaces/ICar';
+import { IQueryParam } from '../interfaces/IQueryParam';
 
 export class RaceApi {
   constructor(
@@ -21,14 +21,14 @@ export class RaceApi {
   async getCars(queryParams: IQueryParam[] = []): Promise<ICarView | void> {
     try {
       const response = await fetch(`${this.baseUrl}/${this.carsUrl}${
-        queryParams.length ? `?${this.queryParamsToString(queryParams)}` : ''}`)
+        queryParams.length ? `?${this.queryParamsToString(queryParams)}` : ''}`);
   
-        return response.ok 
+      return response.ok 
         ? {
-        items: await response.json(),
-        count: Number(response.headers.get('X-Total-Count')),
-      }
-      : this.errorHandler(response);
+          items: await response.json(),
+          count: Number(response.headers.get('X-Total-Count')),
+        }
+        : this.errorHandler(response);
     } catch (error) {
       console.warn(error as Error);
     }

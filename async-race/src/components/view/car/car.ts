@@ -1,6 +1,6 @@
-import { ICar } from "../../interfaces/ICar";
-import { createNode } from "../utils/createNode";
-import { setColorCarImage } from "./carImage";
+import { ICar } from '../../interfaces/ICar';
+import { createNode } from '../utils/createNode';
+import { setColorCarImage } from './carImage';
 
 export function createCar(car: ICar): HTMLElement {
   const newCar = createNode('car-block');

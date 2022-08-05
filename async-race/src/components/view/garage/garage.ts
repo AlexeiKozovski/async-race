@@ -6,15 +6,11 @@ import { createNode } from '../utils/createNode';
 const CAR_LIMIT = 7;
 
 export class Garage {
-  container: HTMLElement;
-  pageNumber: number;
-  api: RaceApi;
-
-  constructor(container: HTMLElement, api: RaceApi) {
-    this.container = container;
-    this.pageNumber = 1;
-    this.api = api;
-  }
+  constructor(
+    private container: HTMLElement, 
+    private api: RaceApi, 
+    private pageNumber: number = 1,
+  ) {}
 
   createControlGarage(): void {
     const controlContainer = createNode('control-garage');
@@ -62,6 +58,6 @@ export class Garage {
       .querySelector('.content') as HTMLElement;
     carsContainer.innerHTML = '';
 
-    cars?.items.forEach((car) => carsContainer.append(createCar(car)))
+    cars?.items.forEach((car) => carsContainer.append(createCar(car)));
   }
 }
