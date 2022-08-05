@@ -25,6 +25,8 @@ export class AppView {
 
   addHandlers(): void {
     this.garage.addCreateCarHandler();
+    this.garage.addUpdateCarHandler();
+    this.garage.addSelectCarHandler();
   }
 
 }

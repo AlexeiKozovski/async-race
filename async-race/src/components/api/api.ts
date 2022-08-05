@@ -55,5 +55,16 @@ export class RaceApi {
     }
   }
 
+  async updateCar(id: number, body: ICar): Promise<ICar> {
+    const response = await fetch(
+      `${this.baseUrl}/${this.carsUrl}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+    return await response.json();
+  }
+
 
 }

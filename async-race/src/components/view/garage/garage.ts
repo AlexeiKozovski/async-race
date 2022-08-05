@@ -2,8 +2,10 @@ import { RaceApi } from '../../api/api';
 import { IQueryParam } from '../../interfaces/IQueryParam';
 import { createCar } from '../car/car';
 import { createNode } from '../utils/createNode';
+import { setDisableValue } from '../utils/utils';
 
 const CAR_LIMIT = 7;
+const SELECT_CAR_ID = 'select-car';
 
 export class Garage {
   constructor(
@@ -71,6 +73,50 @@ export class Garage {
         this.api.createCar({ name: modelInput.value, color: colorInput.value })
       };
       this.renderCars();
+    })
+  }
+
+  addUpdateCarHandler(): void {
+    const modelInput = this.container.querySelector('#update-model-car') as HTMLInputElement;
+    const colorInput = this.container.querySelector('#update-color-car') as HTMLInputElement;
+    const updateBtn = this.container.querySelector('#update-car') as HTMLInputElement;
+
+    updateBtn.addEventListener('click', () => {
+      const carId = Number(updateBtn.dataset.car as string);
+      if (modelInput.value && colorInput.value && carId) {
+        this.api.updateCar(carId, { name: modelInput.value, color: colorInput.value }); 
+      };
+      this.renderCars();
+      modelInput.value = '';
+      colorInput.value = '#ffffff';
+      setDisableValue(modelInput, true);
+      setDisableValue(colorInput, true);
+      setDisableValue(updateBtn, true);
+    })
+  }
+
+  addSelectCarHandler(): void {
+    const modelInput = this.container.querySelector('#update-model-car') as HTMLInputElement;
+    const colorInput = this.container.querySelector('#update-color-car') as HTMLInputElement;
+
+    this.container.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      if (target.dataset.id === SELECT_CAR_ID) {
+        const color = target.dataset.color as string;
+        const name = (target.closest('.car-block') as HTMLElement).querySelector('.name') as HTMLElement;
+
+        modelInput.value = name.textContent as string || '';
+        colorInput.value = color || '#ffffff';
+        
+        const updateSubmit = this.container.querySelector('#update-car') as HTMLInputElement;
+        updateSubmit.dataset.car = `${target.dataset.car}`;
+
+        const updateElements = this.container.querySelectorAll('.update-car');
+        updateElements.forEach((element) => {
+          setDisableValue(element as HTMLInputElement, false);
+        })
+      }
     })
   }
 
