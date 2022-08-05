@@ -60,4 +60,19 @@ export class Garage {
 
     cars?.items.forEach((car) => carsContainer.append(createCar(car)));
   }
+
+  addCreateCarHandler(): void {
+    const modelInput = this.container.querySelector('#model-car') as HTMLInputElement;
+    const colorInput = this.container.querySelector('#color-car') as HTMLInputElement;
+    const createBtn = this.container.querySelector('#create-car') as HTMLInputElement;
+
+    createBtn.addEventListener('click', () => {
+      if (modelInput.value && colorInput.value) {
+        this.api.createCar({ name: modelInput.value, color: colorInput.value })
+      };
+      this.renderCars();
+    })
+  }
+
+
 }

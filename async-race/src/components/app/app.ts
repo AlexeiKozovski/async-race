@@ -13,5 +13,6 @@ export class App {
 
   start(): void {
     this.appView.renderView();
+    this.appView.addHandlers();
   }
 }
