@@ -6,7 +6,7 @@ import { IRaceStatus } from '../interfaces/IRaceStatus';
 import { IWinner } from '../interfaces/IWinner';
 import { IWinnerView } from '../interfaces/IWinnerView';
 
-type statusValue = "started" | "stopped";
+type StatusValue = 'started' | 'stopped';
 
 export class RaceApi {
   constructor(
@@ -70,7 +70,7 @@ export class RaceApi {
         body: JSON.stringify(body),
       });
 
-    return await response.json();
+    return response.json();
   }
 
   async deleteCar(id: number): Promise<void> {
@@ -79,14 +79,14 @@ export class RaceApi {
         method: 'DELETE',
       });
 
-    return await response.json();
-  };
+    return response.json();
+  }
   
-  async startStopCarEngin(id: number, status: statusValue): Promise<ICarSpeedDistance | void>{
+  async startStopCarEngin(id: number, status: StatusValue): Promise<ICarSpeedDistance | void> {
     try {
       const response = await fetch(
         `${this.baseUrl}/${this.engineUrl}?id=${id}&status=${status}`, { 
-          method: 'PATCH' 
+          method: 'PATCH', 
         },
       );
     
@@ -100,11 +100,11 @@ export class RaceApi {
     try {
       const response = await fetch(
         `${this.baseUrl}/${this.engineUrl}?id=${id}&status=drive`, { 
-          method: 'PATCH' 
+          method: 'PATCH', 
         },
       );
       
-      return response.json();
+      return await response.json();
     } catch (error) {
       console.warn(error as Error);
     }
@@ -127,7 +127,7 @@ export class RaceApi {
   async getWinner(id: number): Promise<IWinner | void> {
     const response = await fetch(`${this.baseUrl}/${this.winnersUrl}/${id}`);
 
-    return response.ok ? await response.json() : this.errorHandler(response);
+    return response.ok ? response.json() : this.errorHandler(response);
   }
 
   async createWinner(newWinner: IWinner): Promise<IWinner | void> {
@@ -138,7 +138,7 @@ export class RaceApi {
         body: JSON.stringify(newWinner),
       });
 
-    return response.ok ? await response.json() : this.errorHandler(response);
+    return response.ok ? response.json() : this.errorHandler(response);
   }
 
   async updateWinner(id: number, body: IDataParam): Promise<ICar> {
@@ -147,18 +147,18 @@ export class RaceApi {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-      }
+      },
     );
 
-    return response.ok ? await response.json() : this.errorHandler(response);
+    return response.ok ? response.json() : this.errorHandler(response);
   }
 
   async deleteWinner(id: number): Promise<void> {
     const response = await fetch(
       `${this.baseUrl}/${this.winnersUrl}/${id}`, { 
-        method: 'DELETE' 
+        method: 'DELETE', 
       });
     
-    return response.ok ? await response.json() : this.errorHandler(response);
+    return response.ok ? response.json() : this.errorHandler(response);
   }
 }

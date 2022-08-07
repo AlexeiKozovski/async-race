@@ -77,10 +77,10 @@ export class Garage {
 
     createBtn.addEventListener('click', () => {
       if (modelInput.value && colorInput.value) {
-        this.api.createCar({ name: modelInput.value, color: colorInput.value })
-      };
+        this.api.createCar({ name: modelInput.value, color: colorInput.value });
+      }
       this.renderCars();
-    })
+    });
   }
 
   addUpdateCarHandler(): void {
@@ -92,14 +92,14 @@ export class Garage {
       const carId = Number(updateBtn.dataset.car as string);
       if (modelInput.value && colorInput.value && carId) {
         this.api.updateCar(carId, { name: modelInput.value, color: colorInput.value }); 
-      };
+      }
       this.renderCars();
       modelInput.value = '';
       colorInput.value = '#ffffff';
       setDisableValue(modelInput, true);
       setDisableValue(colorInput, true);
       setDisableValue(updateBtn, true);
-    })
+    });
   }
 
   addSelectCarHandler(): void {
@@ -122,9 +122,9 @@ export class Garage {
         const updateElements = this.container.querySelectorAll('.update-car');
         updateElements.forEach((element) => {
           setDisableValue(element as HTMLInputElement, false);
-        })
+        });
       }
-    })
+    });
   }
 
   addRemoveCarHandler(): void {
@@ -135,7 +135,7 @@ export class Garage {
         this.api.deleteCar(Number(target.dataset.car));                   
         this.renderCars();
       }
-    })    
+    });    
   }
 
   addGenerateCarsHandler() {
@@ -146,7 +146,7 @@ export class Garage {
         await this.api.createCar(createRandomCar());
       }
       this.renderCars();
-    })
+    });
   }
 
   addPaginationHandler(): void {
@@ -174,7 +174,7 @@ export class Garage {
         this.pageNumber = nextValue;
       }
       this.renderCars();
-    })
+    });
   }
 
   async drawAnimationCar(
@@ -187,7 +187,7 @@ export class Garage {
     const carProperties = await this.api.startStopCarEngin(carId, START_ENGINE) as ICarSpeedDistance;
     let result = true;
     const duration = carProperties.distance / carProperties.velocity;
-    let success = this.api.switchCarEngineDriveMode(carId)
+    const success = this.api.switchCarEngineDriveMode(carId)
       .then(() => {
         stopBtn.disabled = false;
         return {
@@ -195,32 +195,32 @@ export class Garage {
           wins: 1,
           time: Math.round(duration) / 1000,
           name: carName,
-        }
+        };
       })
       .catch(() => {
         stopBtn.disabled = false;
         result = false;
       });
 
-    let start = performance.now();
+    const start = performance.now();
     
     requestAnimationFrame(function animate(time: number) {
       let timeFraction = (time - start) / duration;
       if (timeFraction > 1) timeFraction = 1;
-      draw(car, timeFraction, length)
+      draw(car, timeFraction, length);
       if (timeFraction < 1 && result) {
         requestAnimationFrame(animate);
       }
-    })
-    return await success;
+    });
+    return success;
   }
 
   async prepareCarAnimation(
     carContainer: HTMLElement,
     name?: string,
-    ) : Promise<IRaceWinner | void> {
+  ) : Promise<IRaceWinner | void> {
     const stopEngineBtn = carContainer.nextElementSibling as HTMLButtonElement;
-    const track= carContainer.querySelector('.race-track') as HTMLElement;
+    const track = carContainer.querySelector('.race-track') as HTMLElement;
     const car = carContainer.querySelector('.car-image') as HTMLElement;    
     
     return this.drawAnimationCar(
@@ -229,7 +229,7 @@ export class Garage {
       track.offsetWidth,
       stopEngineBtn,
       name,
-    )
+    );
   }
 
   addAnimationCarHandler(): void {
@@ -247,8 +247,7 @@ export class Garage {
         this.prepareCarAnimation(carContainer)
           .then(() => setDisableValue(stopBtn, false));
       }
-    })
-    
+    });    
   }
 
   resetAnimation(carContainer: HTMLElement): void {
@@ -273,7 +272,7 @@ export class Garage {
         const carContainer = target.closest('.car-block') as HTMLElement;
         this.resetAnimation(carContainer);
       }
-    })
+    });
   }
 
   async getRaceCars(container: HTMLElement): Promise<void> {
@@ -284,11 +283,11 @@ export class Garage {
     cars.forEach((car) => {
       const carName = ((car as HTMLElement).querySelector('.name') as HTMLElement).textContent as string;
       const currentCar: Promise<IRaceWinner | void> = this.prepareCarAnimation(car as HTMLElement, carName)
-      .then((res) => {
+        .then((res) => {
           return new Promise((resolve, reject) => {
             res ? resolve(res) : reject('Error');
-          })
-        })
+          });
+        });
       
       racePromises.push(currentCar);
     });
@@ -299,15 +298,15 @@ export class Garage {
           .then((winner) => {
             modalWinner(result.name as string, result.time);
             if (winner) {
-             const winnerCar: IDataParam = {
+              const winnerCar: IDataParam = {
                 wins: winner.wins + 1,
                 time: winner.time < result.time ? winner.time : result.time,
               };
               this.api.updateWinner(winner.id, winnerCar);
             } else {
-              this.api.createWinner({id: result.id, wins: 1, time: result.time,});
+              this.api.createWinner({ id: result.id, wins: 1, time: result.time });
             }
-          })
+          });
       }
     }).catch((error) => console.warn(error as Error));
   }
@@ -322,7 +321,7 @@ export class Garage {
     });
   }
 
-  resetCarHandler(): void{
+  resetCarHandler(): void {
     const raceBtn = this.container.querySelector('#race') as HTMLButtonElement;
     const resetBtn = this.container.querySelector('#reset') as HTMLButtonElement;
 
@@ -331,13 +330,9 @@ export class Garage {
 
       cars.forEach((car)=> {
         this.resetAnimation(car as HTMLElement);
-      })
+      });
       setDisableValue(raceBtn, false);
       setDisableValue(resetBtn, true);
     });
   }
-
-
-
-
 }

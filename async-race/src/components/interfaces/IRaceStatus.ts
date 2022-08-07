@@ -1,3 +1,3 @@
 export interface IRaceStatus {
-  status: Boolean;
+  status: boolean;
 }

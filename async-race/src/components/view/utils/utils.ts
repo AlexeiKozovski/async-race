@@ -1,4 +1,4 @@
-import { createNode } from "./createNode";
+import { createNode } from './createNode';
 
 const CAR_ON_PAGE = 7;
 
@@ -16,7 +16,7 @@ export function isPrevPaginationValue(
 ): number {
   const result = page - 1;
 
-  if(result === 1) setDisableValue(prev, true);
+  if (result === 1) setDisableValue(prev, true);
   setDisableValue(next, false);
 
   return result >= 1 ? result : page;
@@ -29,7 +29,7 @@ export function isNextPaginationValue(
   count: number,
 ): number {
   const result = page + 1;
-  if(result === Math.ceil(count / CAR_ON_PAGE)) setDisableValue(next, true);
+  if (result === Math.ceil(count / CAR_ON_PAGE)) setDisableValue(next, true);
   setDisableValue(prev, false);
 
   return result <= Math.ceil(count / CAR_ON_PAGE) ? result : page;

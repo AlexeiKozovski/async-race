@@ -1,12 +1,5 @@
-import { ICar } from "../../interfaces/ICar";
-import { CAR_BRAND, CAR_MODEL } from "./dataCar";
-
-export function createRandomCar(): ICar {
-  return {
-    name: `${getRandomName()}`,
-    color: `#${getRandomColor()}`,
-  }
-}
+import { ICar } from '../../interfaces/ICar';
+import { CAR_BRAND, CAR_MODEL } from './dataCar';
 
 function getRandomNumber(num: number): number {
   return Math.floor(Math.random() * num);
@@ -29,5 +22,12 @@ function getRandomColor(): string {
   }
 
   return color;
+}
+
+export function createRandomCar(): ICar {
+  return {
+    name: `${getRandomName()}`,
+    color: `#${getRandomColor()}`,
+  };
 }
 

@@ -1,4 +1,4 @@
-import { IWinner } from "./IWinner";
+import { IWinner } from './IWinner';
 
 export interface IWinnerView {
   items: IWinner[];
