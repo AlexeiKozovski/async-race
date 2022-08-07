@@ -13,6 +13,8 @@ const REMOVE_CAR_ID = 'remove-car';
 const CARS_GENERATE_VALUE = 100;
 const START_ENGINE = 'started';
 const START_ENGINE_ID = 'start-engine';
+const STOP_ENGINE = 'stopped';
+const STOP_ENGINE_ID = 'stop-engine';
 
 export class Garage {
   constructor(
@@ -218,7 +220,7 @@ export class Garage {
     ) : Promise<IRaceWinner | void> {
     const stopEngineBtn = carContainer.nextElementSibling as HTMLButtonElement;
     const track= carContainer.querySelector('.race-track') as HTMLElement;
-    const car = carContainer.querySelector('.car-image') as HTMLElement;
+    const car = carContainer.querySelector('.car-image') as HTMLElement;    
     
     return this.drawAnimationCar(
       car,
@@ -238,9 +240,37 @@ export class Garage {
       if (target.dataset.id === START_ENGINE_ID) {
         target.disabled = true;
         const stopBtn = target.nextElementSibling as HTMLButtonElement;
+        stopBtn.disabled = false;
+        
         const carContainer = target.closest('.car-block') as HTMLElement;
         this.prepareCarAnimation(carContainer)
           .then(() => setDisableValue(stopBtn, false));
+      }
+    })
+    
+  }
+
+  resetAnimation(carContainer: HTMLElement): void {
+    const startBtn = carContainer.querySelector('[data-id="start-engine"]') as HTMLButtonElement;
+    const stopBtn = carContainer.querySelector('[data-id="stop-engine"]') as HTMLButtonElement;
+    const carImage = carContainer.querySelector('.car-image') as HTMLElement;
+    
+    setDisableValue(startBtn, false);
+    setDisableValue(stopBtn, true);
+    carImage.style.transform = '';
+    this.api.startStopCarEngin(Number(carContainer.dataset.car), STOP_ENGINE);
+  }
+
+  resetAnimationCarHandler(): void {
+    const carsContainer = this.container as HTMLElement;
+
+    carsContainer.addEventListener('click', async (e: Event) => {
+      const target = e.target as HTMLButtonElement;
+
+      if (target.dataset.id === STOP_ENGINE_ID) {
+        target.disabled = true;
+        const carContainer = target.closest('.car-block') as HTMLElement;
+        this.resetAnimation(carContainer);
       }
     })
   }
