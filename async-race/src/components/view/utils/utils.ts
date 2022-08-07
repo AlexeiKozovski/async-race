@@ -1,3 +1,5 @@
+import { createNode } from "./createNode";
+
 const CAR_ON_PAGE = 7;
 
 export function setDisableValue(
@@ -35,4 +37,12 @@ export function isNextPaginationValue(
 
 export function draw(car: HTMLElement, progress: number, length: number): void {
   car.style.transform = `translateX(${progress * (length - 80)}px)`;
+}
+
+export function modalWinner(name: string, time: number): void {
+  const winner = createNode('modal-winner');
+  winner.innerHTML = `${name} went first <span>${time}</span>!`;
+
+  document.body.append(winner);
+  setInterval(() => winner.remove(), 5000);
 }

@@ -1,11 +1,12 @@
 import { RaceApi } from '../../api/api';
 import { ICarSpeedDistance } from '../../interfaces/ICarSpeedDistance';
+import { IDataParam } from '../../interfaces/IDataParam';
 import { IQueryParam } from '../../interfaces/IQueryParam';
 import { IRaceWinner } from '../../interfaces/IRaceWinner';
 import { createCar } from '../car/car';
 import { createRandomCar } from '../car/carRandom';
 import { createNode } from '../utils/createNode';
-import { draw, isNextPaginationValue, isPrevPaginationValue, setDisableValue } from '../utils/utils';
+import { draw, isNextPaginationValue, isPrevPaginationValue, modalWinner, setDisableValue } from '../utils/utils';
 
 const CAR_LIMIT = 7;
 const SELECT_CAR_ID = 'select-car';
@@ -273,6 +274,67 @@ export class Garage {
         this.resetAnimation(carContainer);
       }
     })
+  }
+
+  async getRaceCars(container: HTMLElement): Promise<void> {
+    const racePromises: Array<Promise<void | IRaceWinner>> = [];
+    const resetBtn = this.container.querySelector('#reset') as HTMLButtonElement;
+    const cars = container.querySelectorAll('.car-block');
+
+    cars.forEach((car) => {
+      const carName = ((car as HTMLElement).querySelector('.name') as HTMLElement).textContent as string;
+      const currentCar: Promise<IRaceWinner | void> = this.prepareCarAnimation(car as HTMLElement, carName)
+      .then((res) => {
+          return new Promise((resolve, reject) => {
+            res ? resolve(res) : reject('Error');
+          })
+        })
+      
+      racePromises.push(currentCar);
+    });
+    Promise.any(racePromises).then((result) => {
+      if (result) {
+        setDisableValue(resetBtn, false);
+        this.api.getWinner(result.id)
+          .then((winner) => {
+            modalWinner(result.name as string, result.time);
+            if (winner) {
+             const winnerCar: IDataParam = {
+                wins: winner.wins + 1,
+                time: winner.time < result.time ? winner.time : result.time,
+              };
+              this.api.updateWinner(winner.id, winnerCar);
+            } else {
+              this.api.createWinner({id: result.id, wins: 1, time: result.time,});
+            }
+          })
+      }
+    }).catch((error) => console.warn(error as Error));
+  }
+
+  async addRaceHandler(): Promise<void> {
+    const raceBtn = this.container.querySelector('#race') as HTMLButtonElement;
+
+    raceBtn.addEventListener('click', ()=> {
+      setDisableValue(raceBtn, true);
+      
+      this.getRaceCars(this.container);
+    });
+  }
+
+  resetCarHandler(): void{
+    const raceBtn = this.container.querySelector('#race') as HTMLButtonElement;
+    const resetBtn = this.container.querySelector('#reset') as HTMLButtonElement;
+
+    resetBtn.addEventListener('click', ()=> {
+      const cars = this.container.querySelectorAll('.car-block');
+
+      cars.forEach((car)=> {
+        this.resetAnimation(car as HTMLElement);
+      })
+      setDisableValue(raceBtn, false);
+      setDisableValue(resetBtn, true);
+    });
   }
 
 

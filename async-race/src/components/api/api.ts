@@ -1,7 +1,10 @@
 import { ICar, ICarView } from '../interfaces/ICar';
 import { ICarSpeedDistance } from '../interfaces/ICarSpeedDistance';
+import { IDataParam } from '../interfaces/IDataParam';
 import { IQueryParam } from '../interfaces/IQueryParam';
 import { IRaceStatus } from '../interfaces/IRaceStatus';
+import { IWinner } from '../interfaces/IWinner';
+import { IWinnerView } from '../interfaces/IWinnerView';
 
 type statusValue = "started" | "stopped";
 
@@ -107,5 +110,55 @@ export class RaceApi {
     }
   }
 
+  async getWinners(queryParams: IQueryParam[] = []): Promise<IWinnerView | void> {
+    try {
+      const response = await fetch(`${this.baseUrl}/${this.winnersUrl}${
+        queryParams.length ? `?${this.queryParamsToString(queryParams)}` : ''}`);
 
+      return {
+        items: await response.json(),
+        count: Number(response.headers.get('X-Total-Count')),
+      };
+    } catch (error) {
+      console.warn(error as Error);
+    }
+  }
+
+  async getWinner(id: number): Promise<IWinner | void> {
+    const response = await fetch(`${this.baseUrl}/${this.winnersUrl}/${id}`);
+
+    return response.ok ? await response.json() : this.errorHandler(response);
+  }
+
+  async createWinner(newWinner: IWinner): Promise<IWinner | void> {
+    const response = await fetch(
+      `${this.baseUrl}/${this.winnersUrl}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newWinner),
+      });
+
+    return response.ok ? await response.json() : this.errorHandler(response);
+  }
+
+  async updateWinner(id: number, body: IDataParam): Promise<ICar> {
+    const response = await fetch(
+      `${this.baseUrl}/${this.winnersUrl}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      }
+    );
+
+    return response.ok ? await response.json() : this.errorHandler(response);
+  }
+
+  async deleteWinner(id: number): Promise<void> {
+    const response = await fetch(
+      `${this.baseUrl}/${this.winnersUrl}/${id}`, { 
+        method: 'DELETE' 
+      });
+    
+    return response.ok ? await response.json() : this.errorHandler(response);
+  }
 }
