@@ -32,3 +32,7 @@ export function isNextPaginationValue(
 
   return result <= Math.ceil(count / CAR_ON_PAGE) ? result : page;
 }
+
+export function draw(car: HTMLElement, progress: number, length: number): void {
+  car.style.transform = `translateX(${progress * (length - 80)}px)`;
+}

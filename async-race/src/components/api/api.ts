@@ -1,5 +1,9 @@
 import { ICar, ICarView } from '../interfaces/ICar';
+import { ICarSpeedDistance } from '../interfaces/ICarSpeedDistance';
 import { IQueryParam } from '../interfaces/IQueryParam';
+import { IRaceStatus } from '../interfaces/IRaceStatus';
+
+type statusValue = "started" | "stopped";
 
 export class RaceApi {
   constructor(
@@ -73,6 +77,34 @@ export class RaceApi {
       });
 
     return await response.json();
+  };
+  
+  async startStopCarEngin(id: number, status: statusValue): Promise<ICarSpeedDistance | void>{
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${this.engineUrl}?id=${id}&status=${status}`, { 
+          method: 'PATCH' 
+        },
+      );
+    
+      return await response.json();
+    } catch (error) {
+      console.warn(error as Error);
+    }
+  }
+
+  async switchCarEngineDriveMode(id: number): Promise<IRaceStatus | void> {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${this.engineUrl}?id=${id}&status=drive`, { 
+          method: 'PATCH' 
+        },
+      );
+      
+      return response.json();
+    } catch (error) {
+      console.warn(error as Error);
+    }
   }
 
 

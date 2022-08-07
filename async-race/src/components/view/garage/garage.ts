@@ -1,14 +1,18 @@
 import { RaceApi } from '../../api/api';
+import { ICarSpeedDistance } from '../../interfaces/ICarSpeedDistance';
 import { IQueryParam } from '../../interfaces/IQueryParam';
+import { IRaceWinner } from '../../interfaces/IRaceWinner';
 import { createCar } from '../car/car';
 import { createRandomCar } from '../car/carRandom';
 import { createNode } from '../utils/createNode';
-import { isNextPaginationValue, isPrevPaginationValue, setDisableValue } from '../utils/utils';
+import { draw, isNextPaginationValue, isPrevPaginationValue, setDisableValue } from '../utils/utils';
 
 const CAR_LIMIT = 7;
 const SELECT_CAR_ID = 'select-car';
 const REMOVE_CAR_ID = 'remove-car';
 const CARS_GENERATE_VALUE = 100;
+const START_ENGINE = 'started';
+const START_ENGINE_ID = 'start-engine';
 
 export class Garage {
   constructor(
@@ -167,6 +171,77 @@ export class Garage {
         this.pageNumber = nextValue;
       }
       this.renderCars();
+    })
+  }
+
+  async drawAnimationCar(
+    car: HTMLElement,
+    carId: number,
+    length: number,
+    stopBtn: HTMLButtonElement,
+    carName?: string,
+  ): Promise<IRaceWinner | void> {
+    const carProperties = await this.api.startStopCarEngin(carId, START_ENGINE) as ICarSpeedDistance;
+    let result = true;
+    const duration = carProperties.distance / carProperties.velocity;
+    let success = this.api.switchCarEngineDriveMode(carId)
+      .then(() => {
+        stopBtn.disabled = false;
+        return {
+          id: carId,
+          wins: 1,
+          time: Math.round(duration) / 1000,
+          name: carName,
+        }
+      })
+      .catch(() => {
+        stopBtn.disabled = false;
+        result = false;
+      });
+
+    let start = performance.now();
+    
+    requestAnimationFrame(function animate(time: number) {
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      draw(car, timeFraction, length)
+      if (timeFraction < 1 && result) {
+        requestAnimationFrame(animate);
+      }
+    })
+    return await success;
+  }
+
+  async prepareCarAnimation(
+    carContainer: HTMLElement,
+    name?: string,
+    ) : Promise<IRaceWinner | void> {
+    const stopEngineBtn = carContainer.nextElementSibling as HTMLButtonElement;
+    const track= carContainer.querySelector('.race-track') as HTMLElement;
+    const car = carContainer.querySelector('.car-image') as HTMLElement;
+    
+    return this.drawAnimationCar(
+      car,
+      Number(carContainer.dataset.car),
+      track.offsetWidth,
+      stopEngineBtn,
+      name,
+    )
+  }
+
+  addAnimationCarHandler(): void {
+    const carsContainer = this.container as HTMLElement;
+
+    carsContainer.addEventListener('click', async (e: Event) => {
+      const target = e.target as HTMLButtonElement;
+
+      if (target.dataset.id === START_ENGINE_ID) {
+        target.disabled = true;
+        const stopBtn = target.nextElementSibling as HTMLButtonElement;
+        const carContainer = target.closest('.car-block') as HTMLElement;
+        this.prepareCarAnimation(carContainer)
+          .then(() => setDisableValue(stopBtn, false));
+      }
     })
   }
 

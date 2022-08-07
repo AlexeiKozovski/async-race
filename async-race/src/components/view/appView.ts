@@ -30,6 +30,7 @@ export class AppView {
     this.garage.addRemoveCarHandler();
     this.garage.addGenerateCarsHandler();
     this.garage.addPaginationHandler();
+    this.garage.addAnimationCarHandler();
   }
 
 }
