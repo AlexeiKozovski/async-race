@@ -132,7 +132,8 @@ export class Garage {
       const target = e.target as HTMLElement;
 
       if (target.dataset.id === REMOVE_CAR_ID) {
-        this.api.deleteCar(Number(target.dataset.car));                   
+        this.api.deleteCar(Number(target.dataset.car));  
+        this.api.deleteWinner(Number(target.dataset.car));              
         this.renderCars();
       }
     });    

@@ -39,10 +39,6 @@ body {
   opacity: 0.5;
 }
 
-/* main {
-  display: block;
-} */
-
 .hide{
   display: none;
 }
@@ -96,6 +92,10 @@ body {
   background-color: gray;
 }
 
+.btn-yellow{
+  background-color: yellowgreen
+}
+
 /* car */
 
 .car-block{
@@ -146,8 +146,39 @@ body {
   padding: 15px;
   font-size: 1.3em;
   transform: translate(-50%, -50%);
+  background-color: green;
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 20px 5px rgba(25, 135, 84, 0.3);
+  box-shadow: 0 0 20px 5px rgba(21, 130, 79, 0.3);
 }
+
+/* winners */
+
+.table-responsive{
+  overflow-x: auto;
+}
+
+.table{
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-color: #fff; 
+  border-collapse: collapse;
+}
+
+.thead {
+  caption-side: bottom;
+  background-color: green;
+}
+
+tr, th, td{
+  padding: 0.5rem;
+  border-color: #fff; 
+  border-style: solid;
+  border-width: 1px 1px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
 

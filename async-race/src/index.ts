@@ -13,6 +13,8 @@ const API_WINNERS_URL = 'winners';
 const API_ENGINE_URL = 'engine';
 const api = new RaceApi(API_HOST, API_GARAGE_URL, API_ENGINE_URL, API_WINNERS_URL);
 
-const app = new App(garageContainer, api);
+const winnersContainer = document.querySelector('.winners-view') as HTMLElement;
+
+const app = new App(garageContainer, api, winnersContainer);
 
 app.start();

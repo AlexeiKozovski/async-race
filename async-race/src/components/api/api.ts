@@ -90,7 +90,7 @@ export class RaceApi {
         },
       );
     
-      return await response.json();
+      return response.json();
     } catch (error) {
       console.warn(error as Error);
     }
@@ -104,7 +104,7 @@ export class RaceApi {
         },
       );
       
-      return await response.json();
+      return response.json();
     } catch (error) {
       console.warn(error as Error);
     }

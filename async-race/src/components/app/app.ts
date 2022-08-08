@@ -7,8 +7,9 @@ export class App {
   constructor(
     carContainer: HTMLElement,
     api: RaceApi,
+    winnersContainer: HTMLElement,
   ) {
-    this.appView = new AppView(carContainer, api);
+    this.appView = new AppView(carContainer, api, winnersContainer);
   }
 
   start(): void {
