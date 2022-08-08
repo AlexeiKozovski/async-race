@@ -1,8 +1,8 @@
-import { RaceApi } from "../../api/api";
-import { IQueryParam } from "../../interfaces/IQueryParam";
-import { createWinnerCars } from "../car/car";
-import { createNode } from "../utils/createNode";
-import { isNextPaginationValue, isPrevPaginationValue } from "../utils/utils";
+import { RaceApi } from '../../api/api';
+import { IQueryParam } from '../../interfaces/IQueryParam';
+import { createWinnerCars } from '../car/car';
+import { createNode } from '../utils/createNode';
+import { isNextPaginationValue, isPrevPaginationValue } from '../utils/utils';
 
 const WINNERS_LIMIT = 10;
 const SORT_WINS = 'wins';
@@ -94,6 +94,26 @@ export class Winners {
         this.pageNumber = nextValue;
       }
       this.renderWinners();
-    })
+    });
+  }
+
+  addSortHandler() {
+    const sortElementsContainer = this.container.querySelector('thead') as HTMLElement;
+
+    sortElementsContainer.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      if (target.dataset.sort === SORT_WINS) {
+        this.sort = SORT_WINS;
+        this.order = this.order === ORDER_ASC ? ORDER_DESC : ORDER_ASC;
+
+        this.renderWinners();
+      } else if (target.dataset.sort === SORT_TIME) {
+        this.sort = SORT_TIME;
+        this.order = this.order === ORDER_ASC ? ORDER_DESC : ORDER_ASC;
+
+        this.renderWinners();
+      }
+    });
   }
 }

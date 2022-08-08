@@ -4,6 +4,7 @@ import { Winners } from './winners/winners';
 
 export class AppView {
   garage: Garage;
+
   winners: Winners;
 
   constructor(
@@ -41,6 +42,7 @@ export class AppView {
     this.garage.resetCarHandler();
     this.winners.addUpdateWinnersHandler();
     this.winners.addPaginationHandler();
+    this.winners.addSortHandler();
   }
 
 }

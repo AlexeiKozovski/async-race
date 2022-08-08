@@ -180,5 +180,11 @@ tr, th, td{
   vertical-align: middle;
 }
 
+.sort{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
 
 
